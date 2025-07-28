@@ -197,7 +197,13 @@ export function VisionAskClient() {
             <CardDescription>The text from your document will appear here.</CardDescription>
           </CardHeader>
           <CardContent>
-            {isLoadingOcr ? (
+            {!file ? (
+              <div className="flex flex-col items-center justify-center text-center text-muted-foreground p-10 border-2 border-dashed rounded-lg h-96">
+                <FileText className="h-12 w-12 mb-4" />
+                <p className="font-medium">Your document text is waiting.</p>
+                <p className="text-sm">Upload a file and click "Extract Text" to see the magic.</p>
+              </div>
+            ) : isLoadingOcr ? (
               <div className="space-y-3">
                 {previewUrl && 
                   <Skeleton className="w-full h-64 rounded-md" />
@@ -206,7 +212,7 @@ export function VisionAskClient() {
                 <Skeleton className="h-20 w-full" />
                 <Skeleton className="h-20 w-full" />
               </div>
-            ) : ocrText ? (
+            ) : (
               <div className="space-y-4">
                 {previewUrl && (
                   <div className="relative w-full h-64 rounded-lg overflow-hidden border">
@@ -220,12 +226,6 @@ export function VisionAskClient() {
                   className="h-96 min-h-[24rem] text-sm bg-secondary/30"
                 />
               </div>
-            ) : (
-                <div className="flex flex-col items-center justify-center text-center text-muted-foreground p-10 border-2 border-dashed rounded-lg h-96">
-                    <FileText className="h-12 w-12 mb-4" />
-                    <p className="font-medium">Your document text is waiting.</p>
-                    <p className="text-sm">Upload a file and click "Extract Text" to see the magic.</p>
-                </div>
             )}
           </CardContent>
         </Card>
