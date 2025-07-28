@@ -6,7 +6,7 @@ export default function Home() {
     <div className="min-h-screen bg-background text-foreground">
       <div className="container mx-auto p-4 sm:p-6 lg:p-8">
         <header className="text-center my-8 md:my-12 flex flex-col items-center">
-          <Image src="/images/Logo.png" alt="VisionAsk Logo" width={800} height={200} data-ai-hint="logo" />
+          <Image src="/images/Logo.png" alt="VisionAsk Logo" width={400} height={100} data-ai-hint="logo" />
         </header>
         <VisionAskClient />
       </div>
