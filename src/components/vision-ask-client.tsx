@@ -206,7 +206,7 @@ export function VisionAskClient() {
                 <Skeleton className="h-20 w-full" />
                 <Skeleton className="h-20 w-full" />
               </div>
-            ) : (
+            ) : ocrText ? (
               <div className="space-y-4">
                 {previewUrl && (
                   <div className="relative w-full h-64 rounded-lg overflow-hidden border">
@@ -220,8 +220,7 @@ export function VisionAskClient() {
                   className="h-96 min-h-[24rem] text-sm bg-secondary/30"
                 />
               </div>
-            )}
-             {!isLoadingOcr && !ocrText && (
+            ) : (
                 <div className="flex flex-col items-center justify-center text-center text-muted-foreground p-10 border-2 border-dashed rounded-lg h-96">
                     <FileText className="h-12 w-12 mb-4" />
                     <p className="font-medium">Your document text is waiting.</p>
