@@ -1,5 +1,12 @@
-# Firebase Studio
+# VisionAsk
 
-This is a NextJS starter in Firebase Studio.
+An intelligent assistant for document analysis. Upload a PDF, JPG, or PNG, and ask any question about its content.
 
-To get started, take a look at src/app/page.tsx.
+This project is built with Next.js, Genkit, and PostgreSQL.
+
+## Author
+
+**Azwar Riyadh Subarkah**
+
+- **LinkedIn:** [www.linkedin.com/in/azwarriyadh](https://www.linkedin.com/in/azwarriyadh)
+- **GitHub Repository:** [https://github.com/sazwarriyadhs/visionask](https://github.com/sazwarriyadhs/visionask)
