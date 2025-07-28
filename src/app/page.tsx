@@ -7,6 +7,9 @@ export default function Home() {
       <div className="container mx-auto p-4 sm:p-6 lg:p-8">
         <header className="text-center my-8 md:my-12 flex flex-col items-center">
           <Image src="/images/Logo.png" alt="VisionAsk Logo" width={400} height={100} data-ai-hint="logo" />
+          <p className="text-primary mt-4 text-lg">
+            Upload a PDF, JPG, or PNG, and ask any question about its content
+          </p>
         </header>
         <VisionAskClient />
       </div>
