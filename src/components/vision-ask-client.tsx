@@ -19,6 +19,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { useToast } from '@/hooks/use-toast';
 import { extractTextFromDocument } from '@/ai/flows/extract-text-from-document';
 import { answerDocumentQuestion } from '@/ai/flows/answer-document-question';
+import { saveVisionAsk } from '@/ai/flows/save-vision-ask';
 
 export function VisionAskClient() {
   const [file, setFile] = useState<File | null>(null);
@@ -85,7 +86,7 @@ export function VisionAskClient() {
   };
 
   const handleAskQuestion = async () => {
-    if (!question || !ocrText) return;
+    if (!question || !ocrText || !file) return;
 
     setIsLoadingAnswer(true);
     setAnswer('');
@@ -93,6 +94,12 @@ export function VisionAskClient() {
     try {
       const result = await answerDocumentQuestion({ ocrText, question });
       setAnswer(result.answer);
+      await saveVisionAsk({
+        fileName: file.name,
+        ocrText,
+        question,
+        answer: result.answer,
+      });
     } catch (e: unknown) {
       toast({
         variant: 'destructive',
@@ -104,7 +111,8 @@ export function VisionAskClient() {
     }
   };
 
-  const hasProcessedFile = file && (isLoadingOcr || ocrText);
+  const hasFile = !!file;
+  const hasProcessedFile = hasFile && (isLoadingOcr || ocrText);
 
   return (
     <main className="grid grid-cols-1 lg:grid-cols-5 gap-6 xl:gap-8">
@@ -210,22 +218,20 @@ export function VisionAskClient() {
                   <Skeleton className="h-20 w-full" />
                 </div>
               ) : (
-                ocrText && (
-                  <div className="space-y-4">
-                    {previewUrl && (
-                      <div className="relative w-full h-64 rounded-lg overflow-hidden border">
-                        <Image src={previewUrl} alt="File preview" fill objectFit="contain" data-ai-hint="document photo" />
-                      </div>
-                    )}
-                    <Textarea
-                      id="ocr-result"
-                      value={ocrText}
-                      readOnly
-                      placeholder="OCR results will be shown here..."
-                      className="h-96 min-h-[24rem] text-sm bg-secondary/30"
-                    />
-                  </div>
-                )
+                <div className="space-y-4">
+                  {previewUrl && (
+                    <div className="relative w-full h-64 rounded-lg overflow-hidden border">
+                      <Image src={previewUrl} alt="File preview" fill objectFit="contain" data-ai-hint="document photo" />
+                    </div>
+                  )}
+                  <Textarea
+                    id="ocr-result"
+                    value={ocrText}
+                    readOnly
+                    placeholder="OCR results will be shown here..."
+                    className="h-96 min-h-[24rem] text-sm bg-secondary/30"
+                  />
+                </div>
               )
             ) : (
               <div className="flex flex-col items-center justify-center text-center text-muted-foreground p-10 border-2 border-dashed rounded-lg h-96">
