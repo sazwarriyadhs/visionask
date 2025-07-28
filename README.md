@@ -1,5 +1,5 @@
 # VisionAsk
-![Deskripsi gambar](./images/Logo.png)
+![Deskripsi gambar](public/images/Logo.png)
 
 An intelligent assistant for document analysis. Upload a PDF, JPG, or PNG, and ask any question about its content.
 
