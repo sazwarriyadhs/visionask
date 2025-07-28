@@ -1,6 +1,7 @@
 # VisionAsk
 ![Deskripsi gambar](public/images/Logo.png)
-
+# Fetures
+![Deskripsi gambar](public/images/feature.png)
 An intelligent assistant for document analysis. Upload a PDF, JPG, or PNG, and ask any question about its content.
 
 This project is built with Next.js, Genkit, and PostgreSQL.
