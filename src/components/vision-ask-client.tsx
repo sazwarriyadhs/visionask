@@ -133,7 +133,7 @@ export function VisionAskClient() {
                 <AlertDescription className="truncate">{file.name}</AlertDescription>
               </Alert>
             )}
-            <Button onClick={handleExtractText} disabled={!file || isLoadingOcr} className="w-full">
+            <Button id="extract-btn" onClick={handleExtractText} disabled={!file || isLoadingOcr} className="w-full">
               {isLoadingOcr ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -210,10 +210,11 @@ export function VisionAskClient() {
               <div className="space-y-4">
                 {previewUrl && (
                   <div className="relative w-full h-64 rounded-lg overflow-hidden border">
-                    <Image src={previewUrl} alt="File preview" layout="fill" objectFit="contain" data-ai-hint="document photo" />
+                    <Image src={previewUrl} alt="File preview" fill objectFit="contain" data-ai-hint="document photo" />
                   </div>
                 )}
                 <Textarea
+                  id="ocr-result"
                   value={ocrText}
                   readOnly
                   placeholder="OCR results will be shown here..."
