@@ -104,6 +104,8 @@ export function VisionAskClient() {
     }
   };
 
+  const hasProcessedFile = file && (isLoadingOcr || ocrText);
+
   return (
     <main className="grid grid-cols-1 lg:grid-cols-5 gap-6 xl:gap-8">
       <div className="lg:col-span-2 flex flex-col gap-6">
@@ -197,30 +199,34 @@ export function VisionAskClient() {
             <CardDescription>The text from your document will appear here.</CardDescription>
           </CardHeader>
           <CardContent>
-            {isLoadingOcr ? (
-              <div className="space-y-3">
-                {previewUrl && 
-                  <Skeleton className="w-full h-64 rounded-md" />
-                }
-                <Skeleton className="h-8 w-3/4" />
-                <Skeleton className="h-20 w-full" />
-                <Skeleton className="h-20 w-full" />
-              </div>
-            ) : ocrText ? (
-              <div className="space-y-4">
-                {previewUrl && (
-                  <div className="relative w-full h-64 rounded-lg overflow-hidden border">
-                    <Image src={previewUrl} alt="File preview" fill objectFit="contain" data-ai-hint="document photo" />
+            {hasProcessedFile ? (
+              isLoadingOcr ? (
+                <div className="space-y-3">
+                  {previewUrl && 
+                    <Skeleton className="w-full h-64 rounded-md" />
+                  }
+                  <Skeleton className="h-8 w-3/4" />
+                  <Skeleton className="h-20 w-full" />
+                  <Skeleton className="h-20 w-full" />
+                </div>
+              ) : (
+                ocrText && (
+                  <div className="space-y-4">
+                    {previewUrl && (
+                      <div className="relative w-full h-64 rounded-lg overflow-hidden border">
+                        <Image src={previewUrl} alt="File preview" fill objectFit="contain" data-ai-hint="document photo" />
+                      </div>
+                    )}
+                    <Textarea
+                      id="ocr-result"
+                      value={ocrText}
+                      readOnly
+                      placeholder="OCR results will be shown here..."
+                      className="h-96 min-h-[24rem] text-sm bg-secondary/30"
+                    />
                   </div>
-                )}
-                <Textarea
-                  id="ocr-result"
-                  value={ocrText}
-                  readOnly
-                  placeholder="OCR results will be shown here..."
-                  className="h-96 min-h-[24rem] text-sm bg-secondary/30"
-                />
-              </div>
+                )
+              )
             ) : (
               <div className="flex flex-col items-center justify-center text-center text-muted-foreground p-10 border-2 border-dashed rounded-lg h-96">
                 <FileText className="h-12 w-12 mb-4" />
